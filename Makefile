@@ -42,7 +42,8 @@ setup: validate
 	@if [ -z "$$(grep '^TRAEFIK_DASHBOARD_USERS=' .env | cut -d'=' -f2)" ]; then \
 		PASS=$$(grep '^TRAEFIK_PASSWORD=' .env | cut -d'=' -f2); \
 		HASH=$$(htpasswd -nb admin "$$PASS"); \
-		sed -i.bak "s|^TRAEFIK_DASHBOARD_USERS=.*|TRAEFIK_DASHBOARD_USERS=$$HASH|" .env; \
+		ESCAPED_HASH=$$(echo "$$HASH" | sed 's/\$$/\$\$\$\$/g'); \
+		sed -i.bak "s|^TRAEFIK_DASHBOARD_USERS=.*|TRAEFIK_DASHBOARD_USERS=$$ESCAPED_HASH|" .env; \
 		echo "✓ Traefik password configured"; \
 	else \
 		echo "✓ Traefik password already configured"; \
