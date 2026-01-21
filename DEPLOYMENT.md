@@ -220,11 +220,72 @@ sudo dpkg -i amazon-cloudwatch-agent.deb
 sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard
 ```
 
-Configuration wizard options:
-- Monitor: **EC2 instance**
-- Metrics: **Standard** (CPU, Memory, Disk, Network)
-- StatsD daemon: **No**
-- CollectD: **No**
+**Configuration wizard prompts:**
+
+1. **On which OS are you planning to use the agent?**
+   - Select: `1. linux`
+
+2. **Are you using EC2 or On-Premises hosts?**
+   - Select: `1. EC2`
+
+3. **Which user are you planning to run the agent?**
+   - Select: `1. root`
+
+4. **Do you want to turn on StatsD daemon?**
+   - Select: `2. no`
+
+5. **Do you want to monitor metrics from CollectD?**
+   - Select: `2. no`
+
+6. **Do you want to monitor any host metrics?**
+   - Select: `1. yes`
+
+7. **Do you want to monitor cpu metrics per core?**
+   - Select: `2. no` (aggregate CPU is sufficient)
+
+8. **Do you want to add ec2 dimensions into all of your metrics?**
+   - Select: `1. yes`
+
+9. **Do you want to aggregate ec2 dimensions?**
+   - Select: `1. yes`
+
+10. **Would you like to collect your metrics at high resolution?**
+    - Select: `4. 60s` (1 minute interval)
+
+11. **Which default metrics config do you want?**
+    - Select: `2. Standard` (includes CPU, Memory, Disk, Network)
+
+12. **Are you satisfied with the above config?**
+    - Select: `1. yes`
+
+13. **Do you have any existing CloudWatch Log Agent configuration file?**
+    - Select: `2. no`
+
+14. **Do you want to monitor any log files?**
+    - Select: `2. no`
+
+15. **Do you want to store the config in SSM parameter store?**
+    - Select: `2. no`
+
+**Start the agent:**
+
+```bash
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
+  -a fetch-config \
+  -m ec2 \
+  -s \
+  -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
+```
+
+**Verify it's running:**
+
+```bash
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
+  -a query \
+  -m ec2
+```
+
+You should see `"status": "running"`
 
 ### 6.4 View Metrics
 
