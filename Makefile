@@ -49,14 +49,22 @@ setup: validate
 		echo "✓ Traefik password already configured"; \
 	fi
 	@echo ""
-	@echo "Step 3/5: Creating data directories..."
+	@echo "Step 3/6: Creating data directories..."
 	@mkdir -p data/{traefik/{letsencrypt,logs},n8n,actualbudget,mealie,homepage/{config},homepage-api}
 	@echo "✓ Directories created"
 	@echo ""
-	@echo "Step 4/5: Building custom services..."
+	@echo "Step 4/6: Copying Homepage configuration..."
+	@if [ ! -f data/homepage/config/services.yaml ]; then \
+		cp homepage-config/*.yaml data/homepage/config/; \
+		echo "✓ Homepage configuration copied"; \
+	else \
+		echo "✓ Homepage configuration already exists (skipping)"; \
+	fi
+	@echo ""
+	@echo "Step 5/6: Building custom services..."
 	@$(COMPOSE) build homepage-api
 	@echo ""
-	@echo "Step 5/5: Starting services..."
+	@echo "Step 6/6: Starting services..."
 	@$(COMPOSE) up -d
 	@echo ""
 	@echo "✓ Setup complete!"
