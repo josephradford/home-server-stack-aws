@@ -1,0 +1,42 @@
+---
+title: AWS Server Stack
+favicon: homepage.png
+
+# Background configuration
+background:
+  image: https://images.unsplash.com/photo-1557683316-973673baf926
+  blur: sm
+  saturate: 50
+  brightness: 50
+  opacity: 50
+
+theme: dark
+color: slate
+
+# Layout configuration
+useEqualHeights: true
+layout:
+  Services:
+    icon: mdi-docker
+    style: row
+    columns: 3
+  Infrastructure:
+    icon: mdi-server-network
+    style: row
+    columns: 2
+
+# UI preferences
+statusStyle: "dot"
+showStats: true
+hideVersion: false
+
+# Quick launch
+quicklaunch:
+  searchDescriptions: true
+  hideInternetSearch: false
+  showSearchSuggestions: true
+  hideVisitURL: false
+
+# Header style
+headerStyle: boxed
+target: _blank

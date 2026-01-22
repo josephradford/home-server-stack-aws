@@ -1,0 +1,16 @@
+---
+- Quick Links:
+    - GitHub Repo:
+        - abbr: GH
+          href: https://github.com/josephradford/home-server-stack-aws
+          description: AWS deployment repo
+
+- AWS:
+    - EC2 Console:
+        - abbr: EC2
+          href: https://console.aws.amazon.com/ec2/
+          description: Manage EC2 instances
+    - CloudWatch:
+        - abbr: CW
+          href: https://console.aws.amazon.com/cloudwatch/
+          description: View metrics & logs
