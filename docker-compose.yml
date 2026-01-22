@@ -245,6 +245,7 @@ services:
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}
       HOMEPAGE_VAR_DOMAIN: ${DOMAIN}
+      HOMEPAGE_ALLOWED_HOSTS: ${DOMAIN},homepage.${DOMAIN}
     volumes:
       - ./data/homepage/config:/app/config
       - /var/run/docker.sock:/var/run/docker.sock:ro
