@@ -16,6 +16,10 @@ color: slate
 # Layout configuration
 useEqualHeights: true
 layout:
+  Weather:
+    icon: mdi-weather-partly-cloudy
+    style: row
+    columns: 1
   Services:
     icon: mdi-docker
     style: row

@@ -244,6 +244,9 @@ services:
     environment:
       HOMEPAGE_VAR_DOMAIN: ${DOMAIN}
       HOMEPAGE_ALLOWED_HOSTS: ${DOMAIN},homepage.${DOMAIN}
+      HOMEPAGE_VAR_OPENWEATHERMAP_API_KEY: ${HOMEPAGE_VAR_OPENWEATHERMAP_API_KEY}
+      HOMEPAGE_VAR_WEATHER_LATITUDE: ${HOMEPAGE_VAR_WEATHER_LATITUDE}
+      HOMEPAGE_VAR_WEATHER_LONGITUDE: ${HOMEPAGE_VAR_WEATHER_LONGITUDE}
     volumes:
       - ./data/homepage/config:/app/config
       - /var/run/docker.sock:/var/run/docker.sock:ro

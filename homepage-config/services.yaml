@@ -1,4 +1,18 @@
 ---
+# Weather & Information
+- Weather:
+    - OpenWeatherMap:
+        icon: mdi-weather-partly-cloudy
+        href: https://openweathermap.org/
+        description: Current weather conditions
+        widget:
+          type: openweathermap
+          latitude: {{HOMEPAGE_VAR_WEATHER_LATITUDE}}
+          longitude: {{HOMEPAGE_VAR_WEATHER_LONGITUDE}}
+          units: metric
+          apiKey: {{HOMEPAGE_VAR_OPENWEATHERMAP_API_KEY}}
+          cache: 5
+
 # Core Services - Primary user-facing services
 - Services:
     - n8n:
@@ -10,7 +24,7 @@
         showStats: true
 
     - Actual Budget:
-        icon: actual.png
+        icon: actual-budget.png
         href: https://actual.{{HOMEPAGE_VAR_DOMAIN}}
         description: Personal finance & budgeting
         container: actualbudget
