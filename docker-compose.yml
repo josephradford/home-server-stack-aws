@@ -216,8 +216,9 @@ services:
     container_name: homepage-api
     environment:
       # Minimal config - no local integrations
-      # Can add external APIs if needed (weather, etc.)
       AWS_DEPLOYMENT: "true"
+      # BOM Weather - Australian Bureau of Meteorology
+      BOM_LOCATION: ${BOM_LOCATION:-sydney}
     restart: unless-stopped
     networks:
       - aws-stack

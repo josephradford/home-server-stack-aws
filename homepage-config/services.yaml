@@ -1,4 +1,27 @@
 ---
+# Weather & Information
+- Weather:
+    - BOM Weather:
+        icon: mdi-weather-partly-cloudy
+        href: http://www.bom.gov.au/
+        description: Australian weather forecast
+        widget:
+          type: customapi
+          url: http://homepage-api:5000/api/bom/weather
+          refreshInterval: 300000  # 5 minutes
+          mappings:
+            - field: observations.temp
+              label: Temperature
+              suffix: "°C"
+            - field: observations.temp_feels_like
+              label: Feels Like
+              suffix: "°C"
+            - field: observations.humidity
+              label: Humidity
+              suffix: "%"
+            - field: forecast_daily.0.short_text
+              label: Today
+
 # Core Services - Primary user-facing services
 - Services:
     - n8n:
@@ -10,7 +33,7 @@
         showStats: true
 
     - Actual Budget:
-        icon: actual.png
+        icon: actual-budget.png
         href: https://actual.{{HOMEPAGE_VAR_DOMAIN}}
         description: Personal finance & budgeting
         container: actualbudget
