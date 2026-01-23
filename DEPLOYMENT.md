@@ -281,11 +281,21 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
 
 ```bash
 sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
-  -a query \
+  -a status \
   -m ec2
 ```
 
 You should see `"status": "running"`
+
+**Alternative verification:**
+
+```bash
+# Check the systemd service status
+sudo systemctl status amazon-cloudwatch-agent
+
+# Check CloudWatch metrics are being sent
+# Go to CloudWatch Console → Metrics → CWAgent
+```
 
 ### 6.4 View Metrics
 
