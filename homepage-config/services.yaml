@@ -1,17 +1,26 @@
 ---
 # Weather & Information
 - Weather:
-    - OpenWeatherMap:
+    - BOM Weather:
         icon: mdi-weather-partly-cloudy
-        href: https://openweathermap.org/
-        description: Current weather conditions
+        href: http://www.bom.gov.au/
+        description: Australian weather forecast
         widget:
-          type: openweathermap
-          latitude: {{HOMEPAGE_VAR_WEATHER_LATITUDE}}
-          longitude: {{HOMEPAGE_VAR_WEATHER_LONGITUDE}}
-          units: metric
-          apiKey: {{HOMEPAGE_VAR_OPENWEATHERMAP_API_KEY}}
-          cache: 5
+          type: customapi
+          url: http://homepage-api:5000/api/bom/weather
+          refreshInterval: 300000  # 5 minutes
+          mappings:
+            - field: observations.temp
+              label: Temperature
+              suffix: "°C"
+            - field: observations.temp_feels_like
+              label: Feels Like
+              suffix: "°C"
+            - field: observations.humidity
+              label: Humidity
+              suffix: "%"
+            - field: forecast_daily.0.short_text
+              label: Today
 
 # Core Services - Primary user-facing services
 - Services:
