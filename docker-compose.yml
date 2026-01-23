@@ -242,8 +242,6 @@ services:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
     environment:
-      PUID: ${PUID:-1000}
-      PGID: ${PGID:-1000}
       HOMEPAGE_VAR_DOMAIN: ${DOMAIN}
       HOMEPAGE_ALLOWED_HOSTS: ${DOMAIN},homepage.${DOMAIN}
     volumes:
