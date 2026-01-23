@@ -1,20 +1,21 @@
 # AWS Deployment Makefile
 # Simplified commands for deploying to AWS EC2
 
-.PHONY: help setup start stop restart logs status clean validate
+.PHONY: help setup start stop restart logs status clean validate homepage-config
 
 COMPOSE := docker compose -f docker-compose.yml
 
 help:
 	@echo "AWS Deployment Commands:"
-	@echo "  make setup      - First-time setup (installs Docker, configures services)"
-	@echo "  make start      - Start all services"
-	@echo "  make stop       - Stop all services"
-	@echo "  make restart    - Restart all services"
-	@echo "  make logs       - View logs from all services"
-	@echo "  make status     - Show service status"
-	@echo "  make clean      - Stop and remove containers"
-	@echo "  make validate   - Validate docker-compose configuration"
+	@echo "  make setup            - First-time setup (installs Docker, configures services)"
+	@echo "  make start            - Start all services"
+	@echo "  make stop             - Stop all services"
+	@echo "  make restart          - Restart all services"
+	@echo "  make logs             - View logs from all services"
+	@echo "  make status           - Show service status"
+	@echo "  make clean            - Stop and remove containers"
+	@echo "  make validate         - Validate docker-compose configuration"
+	@echo "  make homepage-config  - Update Homepage configuration and restart"
 	@echo ""
 	@echo "Monitoring:"
 	@echo "  make cloudwatch-setup  - Install CloudWatch agent (AWS monitoring)"
@@ -58,7 +59,7 @@ setup: validate
 		cp homepage-config/*.yaml data/homepage/config/; \
 		echo "✓ Homepage configuration copied"; \
 	else \
-		echo "✓ Homepage configuration already exists (skipping)"; \
+		echo "! Homepage configuration already exists (run 'make homepage-config' to update)"; \
 	fi
 	@echo ""
 	@echo "Step 5/6: Building custom services..."
@@ -109,6 +110,19 @@ clean:
 	@echo "Stopping and removing containers..."
 	@$(COMPOSE) down -v
 	@echo "✓ Cleanup complete (data/ preserved)"
+
+# Update Homepage configuration
+homepage-config:
+	@echo "Updating Homepage configuration..."
+	@mkdir -p data/homepage/config
+	@cp homepage-config/*.yaml data/homepage/config/
+	@echo "✓ Configuration files copied"
+	@echo ""
+	@echo "Restarting Homepage container..."
+	@$(COMPOSE) restart homepage
+	@echo "✓ Homepage restarted"
+	@echo ""
+	@echo "Homepage updated at: https://$$(grep '^DOMAIN=' .env | cut -d'=' -f2)"
 
 # Install CloudWatch agent for AWS monitoring
 cloudwatch-setup:
